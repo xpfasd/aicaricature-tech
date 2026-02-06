@@ -1,0 +1,42 @@
+---
+import LanguageSwitcher from './LanguageSwitcher';
+import { getDictionary, getPath, type Locale } from '../lib/site';
+
+interface Props {
+  locale: Locale;
+  pathname: string;
+}
+
+const { locale, pathname } = Astro.props;
+const dict = getDictionary(locale);
+
+const links = [
+  { id: 'home', href: getPath(locale, 'home'), label: dict.nav.home },
+  { id: 'caricature-prompt', href: getPath(locale, 'caricature-prompt'), label: dict.nav.prompt },
+  {
+    id: 'caricature-generator',
+    href: getPath(locale, 'caricature-generator'),
+    label: dict.nav.generator
+  },
+  { id: 'caricature-trend', href: getPath(locale, 'caricature-trend'), label: dict.nav.trend },
+  { id: 'about', href: getPath(locale, 'about'), label: dict.nav.about }
+];
+---
+
+<header class="sticky top-0 z-40 border-b border-border/70 bg-white/90 backdrop-blur">
+  <div class="container-page flex h-16 items-center justify-between gap-4">
+    <a href={getPath(locale, 'home')} class="text-lg font-extrabold tracking-tight text-ink">
+      AI Caricature
+    </a>
+    <nav class="hidden items-center gap-4 text-sm md:flex">
+      {
+        links.map((link) => (
+          <a href={link.href} class={`rounded-action px-3 py-2 text-muted hover:text-primary ${pathname === link.href ? 'bg-indigo-50 text-primary' : ''}`}>
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+    <LanguageSwitcher client:load currentLocale={locale} pathname={pathname} />
+  </div>
+</header>

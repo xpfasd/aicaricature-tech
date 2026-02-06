@@ -1,0 +1,29 @@
+{
+  "siteName": "AI 캐리커처",
+  "nav": {
+    "home": "홈",
+    "prompt": "프롬프트",
+    "generator": "생성기",
+    "trend": "트렌드",
+    "maker": "메이커",
+    "fromPhoto": "사진 변환",
+    "about": "소개",
+    "contact": "문의"
+  },
+  "footer": {
+    "tagline": "무료 AI 캐리커처 생성기로 즉시 카툰 이미지를 만드세요.",
+    "privacy": "개인정보처리방침",
+    "terms": "이용약관",
+    "about": "소개",
+    "contact": "문의",
+    "rights": "모든 권리 보유."
+  },
+  "common": {
+    "trust1": "무료 사용",
+    "trust2": "회원가입 불필요",
+    "trust3": "즉시 결과",
+    "relatedTools": "관련 AI 캐리커처 도구",
+    "faqTitle": "자주 묻는 질문",
+    "language": "언어"
+  }
+}

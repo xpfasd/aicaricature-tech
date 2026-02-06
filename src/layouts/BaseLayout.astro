@@ -1,0 +1,41 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SEOHead from '../components/SEOHead.astro';
+import { GA_MEASUREMENT_ID, type Locale, type PageId } from '../lib/site';
+import '../styles/global.css';
+
+interface Props {
+  locale: Locale;
+  pageId: PageId;
+  title: string;
+  description: string;
+  schema?: Record<string, unknown> | null;
+}
+
+const { locale, pageId, title, description, schema = null } = Astro.props;
+const pathname = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <SEOHead title={title} description={description} locale={locale} pageId={pageId} schema={schema} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+  </head>
+  <body class="min-h-screen">
+    <Header locale={locale} pathname={pathname} />
+    <main>
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>

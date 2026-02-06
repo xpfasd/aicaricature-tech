@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageTemplate from '../components/PageTemplate.astro';
+import { PAGE_META } from '../lib/site';
+
+const page = PAGE_META['caricature-prompt'];
+---
+
+<BaseLayout locale="en" pageId="caricature-prompt" title={page.title} description={page.description}>
+  <PageTemplate locale="en" pageId="caricature-prompt" showGenerator={true} />
+</BaseLayout>

@@ -1,0 +1,29 @@
+{
+  "siteName": "AI カリカチュア",
+  "nav": {
+    "home": "ホーム",
+    "prompt": "プロンプト",
+    "generator": "ジェネレーター",
+    "trend": "トレンド",
+    "maker": "メーカー",
+    "fromPhoto": "写真から",
+    "about": "会社情報",
+    "contact": "お問い合わせ"
+  },
+  "footer": {
+    "tagline": "無料で使えるAIカリカチュア生成ツール。",
+    "privacy": "プライバシー",
+    "terms": "利用規約",
+    "about": "会社情報",
+    "contact": "お問い合わせ",
+    "rights": "無断転載を禁じます。"
+  },
+  "common": {
+    "trust1": "無料",
+    "trust2": "登録不要",
+    "trust3": "すぐに生成",
+    "relatedTools": "関連AIカリカチュアツール",
+    "faqTitle": "よくある質問",
+    "language": "言語"
+  }
+}

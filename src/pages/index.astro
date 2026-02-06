@@ -1,0 +1,132 @@
+---
+import { readFile } from 'node:fs/promises';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CaricatureGenerator from '../components/CaricatureGenerator';
+import ToolCard from '../components/ToolCard';
+import FAQ from '../components/FAQ';
+import { markdownToHtml, stripFirstMarkdownHeading } from '../lib/markdown';
+import { PAGE_META, getPath } from '../lib/site';
+
+const page = PAGE_META.home;
+const markdownRaw = await readFile(new URL('../../content/homepage-en.md', import.meta.url), 'utf-8');
+const homepageHtml = markdownToHtml(stripFirstMarkdownHeading(markdownRaw));
+
+const tools = [
+  {
+    title: 'Prompt Library',
+    description: 'Browse high-performing AI caricature prompts.',
+    href: getPath('en', 'caricature-prompt')
+  },
+  {
+    title: 'Generator Pro',
+    description: 'Use the free caricature generator UI mockup instantly.',
+    href: getPath('en', 'caricature-generator')
+  },
+  {
+    title: 'Maker Studio',
+    description: 'Fine tune style and prompt direction for your result.',
+    href: getPath('en', 'caricature-maker')
+  },
+  {
+    title: 'From Photo',
+    description: 'Convert selfies into caricatures in one flow.',
+    href: getPath('en', 'caricature-from-photo')
+  },
+  {
+    title: 'Trend Guide',
+    description: 'Understand what makes the 2026 trend viral.',
+    href: getPath('en', 'caricature-trend')
+  },
+  {
+    title: 'About Project',
+    description: 'Learn the mission behind AI Caricature.',
+    href: getPath('en', 'about')
+  }
+];
+
+const faqSchema = {
+  '@type': 'FAQPage',
+  mainEntity: page.faq.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer
+    }
+  }))
+};
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebApplication',
+      name: 'AI Caricature',
+      applicationCategory: 'MultimediaApplication',
+      operatingSystem: 'Web',
+      url: 'https://aicaricature.tech/',
+      description: page.description,
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD'
+      }
+    },
+    {
+      '@context': 'https://schema.org',
+      ...faqSchema
+    }
+  ]
+};
+---
+
+<BaseLayout locale="en" pageId="home" title={page.title} description={page.description} schema={schema}>
+  <section class="container-page pt-8 sm:pt-12">
+    <div class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+      <div>
+        <p class="inline-flex items-center rounded-full bg-indigo-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
+          Viral 2026 AI trend
+        </p>
+        <h1 class="mt-4 text-3xl font-black tracking-tight text-ink sm:text-5xl">{page.h1}</h1>
+        <p class="mt-4 max-w-2xl text-base leading-7 text-muted">{page.description}</p>
+        <div class="mt-5 grid gap-2 text-sm text-muted sm:grid-cols-3">
+          <span>✓ Free to use</span>
+          <span>✓ No signup required</span>
+          <span>✓ Instant result</span>
+        </div>
+      </div>
+      <CaricatureGenerator client:load />
+    </div>
+  </section>
+
+  <section class="container-page mt-8">
+    <div class="section-card p-6 sm:p-8">
+      <h2 class="text-2xl font-bold text-ink">What is AI Caricature?</h2>
+      <p class="mt-4 text-base leading-7 text-muted">
+        AI Caricature is a free online tool that transforms photos into expressive cartoon portraits with exaggerated style and personality.
+        Explore dedicated pages for prompt templates, trend insights, and maker workflows.
+      </p>
+    </div>
+  </section>
+
+  <section class="container-page mt-6">
+    <div class="section-card p-6 sm:p-8">
+      <h2 class="text-2xl font-bold text-ink">Related AI Caricature Tools</h2>
+      <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          tools.map((tool) => (
+            <ToolCard client:visible {...tool} />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="container-page mt-6">
+    <article class="section-card p-6 sm:p-10 prose prose-slate max-w-none" set:html={homepageHtml} />
+  </section>
+
+  <section class="container-page mt-6">
+    <FAQ client:load title="FAQ - AI Caricature Questions" items={page.faq} />
+  </section>
+</BaseLayout>

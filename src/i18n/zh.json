@@ -1,0 +1,29 @@
+{
+  "siteName": "AI 漫画头像",
+  "nav": {
+    "home": "首页",
+    "prompt": "提示词",
+    "generator": "生成器",
+    "trend": "趋势",
+    "maker": "制作工具",
+    "fromPhoto": "照片转漫画",
+    "about": "关于",
+    "contact": "联系"
+  },
+  "footer": {
+    "tagline": "免费的 AI 漫画头像生成器，快速生成卡通形象。",
+    "privacy": "隐私",
+    "terms": "条款",
+    "about": "关于",
+    "contact": "联系",
+    "rights": "保留所有权利。"
+  },
+  "common": {
+    "trust1": "免费使用",
+    "trust2": "无需注册",
+    "trust3": "即时结果",
+    "relatedTools": "相关 AI 漫画工具",
+    "faqTitle": "常见问题",
+    "language": "语言"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "siteName": "AI Caricature",
+  "nav": {
+    "home": "Home",
+    "prompt": "Prompt",
+    "generator": "Generator",
+    "trend": "Trend",
+    "maker": "Maker",
+    "fromPhoto": "From Photo",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "footer": {
+    "tagline": "The free AI caricature generator for instant cartoon portraits.",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "about": "About",
+    "contact": "Contact",
+    "rights": "All rights reserved."
+  },
+  "common": {
+    "trust1": "Free to use",
+    "trust2": "No signup required",
+    "trust3": "Instant result",
+    "relatedTools": "Related AI Caricature Tools",
+    "faqTitle": "FAQ - AI Caricature Questions",
+    "language": "Language"
+  }
+}

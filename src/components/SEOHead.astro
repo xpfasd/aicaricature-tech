@@ -1,0 +1,47 @@
+---
+import { SITE_URL, getAlternateLinks, getPath, type Locale, type PageId } from '../lib/site';
+
+interface Props {
+  title: string;
+  description: string;
+  locale: Locale;
+  pageId: PageId;
+  ogType?: string;
+  schema?: Record<string, unknown> | null;
+}
+
+const { title, description, locale, pageId, ogType = 'website', schema = null } = Astro.props;
+const canonical = `${SITE_URL}${getPath(locale, pageId)}`;
+const alternates = getAlternateLinks(pageId);
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{
+  alternates.map((alt) => (
+    <link rel="alternate" hreflang={alt.locale} href={alt.href} />
+  ))
+}
+<link rel="alternate" hreflang="x-default" href={`${SITE_URL}${getPath('en', pageId)}`} />
+
+<meta property="og:type" content={ogType} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content="AI Caricature" />
+<meta property="og:image" content={`${SITE_URL}/og-image.png`} />
+<meta property="og:locale" content={locale} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={`${SITE_URL}/og-image.png`} />
+
+{
+  schema ? (
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  ) : null
+}

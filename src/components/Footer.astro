@@ -1,0 +1,40 @@
+---
+import { getDictionary, getPath, type Locale } from '../lib/site';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = getDictionary(locale);
+---
+
+<footer class="mt-12 border-t border-border bg-slate-50">
+  <div class="container-page grid gap-8 py-10 md:grid-cols-3">
+    <div>
+      <h2 class="text-lg font-bold text-ink">{dict.siteName}</h2>
+      <p class="mt-3 text-sm leading-6 text-muted">{dict.footer.tagline}</p>
+    </div>
+    <div>
+      <h3 class="text-sm font-semibold uppercase tracking-wide text-ink">Pages</h3>
+      <ul class="mt-3 space-y-2 text-sm text-muted">
+        <li><a href={getPath(locale, 'privacy')} class="hover:text-primary">{dict.footer.privacy}</a></li>
+        <li><a href={getPath(locale, 'terms')} class="hover:text-primary">{dict.footer.terms}</a></li>
+        <li><a href={getPath(locale, 'about')} class="hover:text-primary">{dict.footer.about}</a></li>
+        <li><a href={getPath(locale, 'contact')} class="hover:text-primary">{dict.footer.contact}</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="text-sm font-semibold uppercase tracking-wide text-ink">Core Tools</h3>
+      <ul class="mt-3 space-y-2 text-sm text-muted">
+        <li><a href={getPath(locale, 'caricature-prompt')} class="hover:text-primary">Caricature Prompt</a></li>
+        <li><a href={getPath(locale, 'caricature-generator')} class="hover:text-primary">Caricature Generator</a></li>
+        <li><a href={getPath(locale, 'caricature-maker')} class="hover:text-primary">Caricature Maker</a></li>
+        <li><a href={getPath(locale, 'caricature-from-photo')} class="hover:text-primary">Caricature from Photo</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-border bg-white">
+    <div class="container-page py-4 text-xs text-muted">© {new Date().getFullYear()} AI Caricature. {dict.footer.rights}</div>
+  </div>
+</footer>

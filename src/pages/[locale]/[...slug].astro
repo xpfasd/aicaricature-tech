@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageTemplate from '../../components/PageTemplate.astro';
+import {
+  DEFAULT_LOCALE,
+  LOCALES,
+  PAGE_IDS,
+  PAGE_META,
+  getPageIdFromSlug,
+  getSlugByPageId,
+  getLocalizedDescription,
+  getLocalizedTitle,
+  type Locale,
+  type PageId
+} from '../../lib/site';
+
+export function getStaticPaths() {
+  const locales = LOCALES.filter((locale) => locale !== DEFAULT_LOCALE);
+
+  return locales.flatMap((locale) =>
+    PAGE_IDS.map((pageId) => ({
+      params: {
+        locale,
+        slug: getSlugByPageId(pageId) || undefined
+      }
+    }))
+  );
+}
+
+const localeParam = Astro.params.locale as Locale;
+const slug = Astro.params.slug ?? '';
+
+const pageId = getPageIdFromSlug(slug) as PageId;
+const showGenerator = !['privacy', 'terms', 'contact', 'about'].includes(pageId);
+const schema =
+  pageId === 'home'
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'WebApplication',
+        name: 'AI Caricature',
+        applicationCategory: 'MultimediaApplication',
+        operatingSystem: 'Web',
+        description: PAGE_META.home.description,
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD'
+        }
+      }
+    : null;
+---
+
+<BaseLayout
+  locale={localeParam}
+  pageId={pageId}
+  title={getLocalizedTitle(localeParam, pageId)}
+  description={getLocalizedDescription(localeParam, pageId)}
+  schema={schema}
+>
+  <PageTemplate locale={localeParam} pageId={pageId} showGenerator={showGenerator} />
+</BaseLayout>

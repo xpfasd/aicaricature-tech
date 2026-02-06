@@ -1,0 +1,76 @@
+---
+import CaricatureGenerator from './CaricatureGenerator';
+import FAQ from './FAQ';
+import ToolCard from './ToolCard';
+import { PAGE_META, getPath, getDictionary, type Locale, type PageId } from '../lib/site';
+
+interface Props {
+  locale: Locale;
+  pageId: PageId;
+  showGenerator?: boolean;
+}
+
+const { locale, pageId, showGenerator = true } = Astro.props;
+const page = PAGE_META[pageId];
+const dict = getDictionary(locale);
+
+const relatedTools = [
+  {
+    title: 'Caricature Prompt',
+    description: 'Copy-ready prompt templates for viral caricature styles.',
+    href: getPath(locale, 'caricature-prompt')
+  },
+  {
+    title: 'Caricature Generator',
+    description: 'Fast mockup workflow for generating portrait caricatures.',
+    href: getPath(locale, 'caricature-generator')
+  },
+  {
+    title: 'Caricature Maker',
+    description: 'Creator-focused editor for profile-ready caricature output.',
+    href: getPath(locale, 'caricature-maker')
+  },
+  {
+    title: 'Caricature from Photo',
+    description: 'Upload-first workflow for quick photo-to-caricature conversion.',
+    href: getPath(locale, 'caricature-from-photo')
+  }
+];
+---
+
+<section class="container-page pt-8 sm:pt-12">
+  <div class="section-card p-6 sm:p-10">
+    <h1 class="text-3xl font-black tracking-tight text-ink sm:text-4xl">{page.h1}</h1>
+    <p class="mt-4 max-w-3xl text-base leading-7 text-muted">{page.intro}</p>
+    <div class="mt-6 grid gap-3 text-sm text-muted">
+      {
+        page.sections.map((section) => (
+          <p>{section}</p>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+{showGenerator ? (
+  <section class="container-page mt-6">
+    <CaricatureGenerator client:load />
+  </section>
+) : null}
+
+<section class="container-page mt-6">
+  <div class="section-card p-6 sm:p-8">
+    <h2 class="text-2xl font-bold text-ink">{dict.common.relatedTools}</h2>
+    <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        relatedTools.map((tool) => (
+          <ToolCard client:visible {...tool} />
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<section class="container-page mt-6">
+  <FAQ client:load title={dict.common.faqTitle} items={page.faq} />
+</section>
